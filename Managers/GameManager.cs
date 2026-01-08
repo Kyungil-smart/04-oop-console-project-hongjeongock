@@ -8,6 +8,7 @@ public class GameManager
 
     public void Run()
     {
+        // 게임 시작 시 1회 초기화
         Init();
         
         while (!IsGameOver)
@@ -31,6 +32,7 @@ public class GameManager
     private void Init()
     {
         IsGameOver = false;
+        // 씬 전환이 발생할 때다마 입력 상태를 초기화
         SceneManager.OnChangeScene += InputManager.ResetKey;
         _player = new PlayerCharacter();
         
