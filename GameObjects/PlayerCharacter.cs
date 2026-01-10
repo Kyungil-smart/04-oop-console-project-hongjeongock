@@ -14,6 +14,7 @@ public class PlayerCharacter : GameObject
     {
         Symbol = 'P';
         IsActiveControl = true;
+
     }
 
     public void Update()
@@ -75,6 +76,11 @@ public class PlayerCharacter : GameObject
             {
                 (nextTileObject as IInteractable).Interact(this);
             }
+        }
+
+        if (nextTileObject is Dungeon)
+        {
+            SceneManager.Change("Dungeon");
         }
 
         Field[Position.Y, Position.X].OnTileObject = null;

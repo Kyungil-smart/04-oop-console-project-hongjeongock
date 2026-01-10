@@ -3,12 +3,13 @@
 public class DungeonScene : Scene
 {
     //던전 맵 크기(TownScene과 동일)
-    private Tile[,] _field = new Tile[10, 20];
+    private Tile[,] _field = new Tile[20, 20];
 
     // TownScene에서 쓰던 플레이어 인스턴스
     private PlayerCharacter _player;
     
     // 던전 진입 시 플레이어 시작 위치
+    private Vector _startPos = new Vector(1, 1);
 
     public DungeonScene(PlayerCharacter player) => Init(player);
 
@@ -16,23 +17,31 @@ public class DungeonScene : Scene
     public void Init(PlayerCharacter player)
     {
         _player = player;
-        
+
         // _field의 모든 좌표에 Tite을 생성해서 넣기
+        for (int y = 0; y < _field.GetLength(0); y++)
+        {
+            for (int x = 0; x < _field.GetLength(1); x++)
+            {
+                Vector pos = new Vector(x, y);
+                _field[y, x] = new Tile(pos);
+            }
+        }
     }
 
     public override void Enter()
     {
-        // 씬에 들어올 때 1회 실행
         // 플레이어 Field연결
+        _player.Field = _field;
         // 플레이어 위치 설정
+        _player.Position = _startPos;
         // 해당 타일에 플레이어 올리기
-        Debug.Log("던전 씬 진입");
+        _field[_player.Position.X, _player.Position.Y].OnTileObject = _player;
     }
 
     public override void Update()
     {
         _player.Update();
-        // 마을로 복귀 기능 추가
     }
 
     public override void Render()
@@ -42,7 +51,8 @@ public class DungeonScene : Scene
         // 플레이어 ui 출력
         PrintField();
         _player.Render();
-        // 조작키 안내 문구? 출력(가능하면)
+        // 조작키 안내 문구? 출력
+        Console.WriteLine("↑ : 위로 / ↓ : 아래로 / ← : 왼쪽 / → : 오른쪽 / Q : 종료");
     }
 
     public override void Exit()
@@ -54,7 +64,7 @@ public class DungeonScene : Scene
 
     private void PrintField()
     {
-        // 타일 배열 순회하며 출력
+        // 타일 배열 출력
         for (int y = 0; y < _field.GetLength(0); y++)
         {
             for (int x = 0; x < _field.GetLength(1); x++)

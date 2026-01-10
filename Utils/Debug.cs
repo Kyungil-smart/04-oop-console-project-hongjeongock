@@ -1,13 +1,11 @@
-﻿
-
-public static class Debug
+﻿public static class Debug
 {
     public enum LogType
     {
         Normal,
         Warning
     }
-    
+
     private static List<(LogType type, string text)> _logList = new List<(LogType type, string text)>();
 
     public static void Log(string text)
