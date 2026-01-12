@@ -20,10 +20,13 @@ public class Inventory
         _itemMenu.Remove();
     }
 
-    public void Render()
+    public void Render(int Gold)
     {
         if (!IsActive) return;
-        
+
+        Console.SetCursorPosition(15, 0);
+        Console.WriteLine($"Gold: {Gold}");
+
         _itemMenu.Render(15, 1);
     }
 

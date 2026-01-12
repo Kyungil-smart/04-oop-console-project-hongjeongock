@@ -98,7 +98,7 @@ public class PlayerCharacter : GameObject
 
     public void Render()
     {
-        _inventory.Render();
+        _inventory.Render(Gold);
     }
 
     public void AddItem(Item item)

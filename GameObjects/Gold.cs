@@ -22,6 +22,6 @@ public class Gold : Item, IInteractable
 
     public void Interact(PlayerCharacter player)
     {
-        player.AddItem(this);
+        player.AddGold(_gold);
     }
 }
