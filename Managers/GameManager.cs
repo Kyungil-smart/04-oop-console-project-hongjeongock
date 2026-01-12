@@ -46,7 +46,8 @@ public class GameManager
         // 던전 씬 등록
         SceneManager.AddScene("Dungeon", new DungeonScene(_player));
         // 상점 씬 등록
-  
+        SceneManager.AddScene("Shop", new ShopScene());
+
         SceneManager.Change("Title");
         
         Debug.Log("게임 데이터 초기화 완료");

@@ -5,9 +5,6 @@
 
     // TownScene에서 쓰던 플레이어 인스턴스
     private PlayerCharacter _player;
-    
-    // 던전 진입 시 플레이어 시작 위치
-    private Vector _startPos = new Vector(1, 1);
 
     public DungeonScene(PlayerCharacter player) => Init(player);
 
@@ -34,11 +31,15 @@
         // 플레이어 Field연결
         _player.Field = _field;
         // 플레이어 위치 설정
-        _player.Position = _startPos;
+        _player.Position = new Vector(1, 1);
         // 해당 타일에 플레이어 올리기
         _field[_player.Position.Y, _player.Position.X].OnTileObject = _player;
         // 골드
         _field[3, 5].OnTileObject = new Gold() { _gold = 50, Name = "Gold"};
+        _field[2, 2].OnTileObject = new Monster();
+        _field[9, 10].OnTileObject = new Monster();
+        _field[7, 10].OnTileObject = new Monster();
+        _field[9, 2].OnTileObject = new Boss();
     }
 
     public override void Update()

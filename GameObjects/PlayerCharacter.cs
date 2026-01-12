@@ -8,6 +8,13 @@ public class PlayerCharacter : GameObject
     public bool IsInventoryActive => _inventory.IsActive;
     public bool IsActiveControl { get; private set; }
 
+    public void AddMonsterKillCount()
+    {
+       
+    }
+
+    public bool IsBoss { get; set; }
+
     public int Gold { get; private set; }
     public void AddGold(int _gold)
     {
@@ -87,6 +94,11 @@ public class PlayerCharacter : GameObject
         if (nextTileObject is Dungeon)
         {
             SceneManager.Change("Dungeon");
+        }
+
+        if (nextTileObject is Monster)
+        {
+            SceneManager.Change("Battle");
         }
 
         Field[Position.Y, Position.X].OnTileObject = null;

@@ -15,7 +15,8 @@ public static class InputManager
         ConsoleKey.L,
         ConsoleKey.Q,
         ConsoleKey.B
-    };
+    };  
+
 
     public static bool GetKey(ConsoleKey input)
     {
