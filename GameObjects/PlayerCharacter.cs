@@ -1,12 +1,18 @@
-﻿
-
-using System.Runtime.InteropServices.Marshalling;
+﻿using System.Runtime.InteropServices.Marshalling;
 
 public class PlayerCharacter : GameObject
 {
     public Tile[,] Field { get; set; }
+    public Inventory Inventory { get; set; }
     private Inventory _inventory = new Inventory();
+    public bool IsInventoryActive => _inventory.IsActive;
     public bool IsActiveControl { get; private set; }
+
+    public int Gold { get; private set; }
+    public void AddGold(int _gold)
+    {
+        Gold += _gold;
+    }
 
     public PlayerCharacter() => Init();
 

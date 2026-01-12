@@ -1,9 +1,7 @@
-﻿
-
-public class DungeonScene : Scene
+﻿public class DungeonScene : Scene
 {
-    //던전 맵 크기(TownScene과 동일)
-    private Tile[,] _field = new Tile[20, 20];
+    //던전 맵 크기
+    private Tile[,] _field = new Tile[10, 20];
 
     // TownScene에서 쓰던 플레이어 인스턴스
     private PlayerCharacter _player;
@@ -12,6 +10,8 @@ public class DungeonScene : Scene
     private Vector _startPos = new Vector(1, 1);
 
     public DungeonScene(PlayerCharacter player) => Init(player);
+
+    public Inventory Inventory { get; } = new Inventory();
 
     // 타일 배열 생성/초기화
     public void Init(PlayerCharacter player)
@@ -36,12 +36,22 @@ public class DungeonScene : Scene
         // 플레이어 위치 설정
         _player.Position = _startPos;
         // 해당 타일에 플레이어 올리기
-        _field[_player.Position.X, _player.Position.Y].OnTileObject = _player;
+        _field[_player.Position.Y, _player.Position.X].OnTileObject = _player;
+        // 골드
+        _field[3, 5].OnTileObject = new Gold() { _gold = 50, Name = "Gold"};
     }
 
     public override void Update()
     {
         _player.Update();
+        if (InputManager.GetKey(ConsoleKey.B))
+        {
+            SceneManager.Change("Town");
+        }
+        if (InputManager.GetKey(ConsoleKey.Q))
+        {
+            SceneManager.Change("Title");
+        }
     }
 
     public override void Render()
@@ -51,8 +61,9 @@ public class DungeonScene : Scene
         // 플레이어 ui 출력
         PrintField();
         _player.Render();
-        // 조작키 안내 문구? 출력
-        Console.WriteLine("↑ : 위로 / ↓ : 아래로 / ← : 왼쪽 / → : 오른쪽 / Q : 종료");
+        // 조작키 안내 문구 출력
+        if (_player.IsInventoryActive) return;
+        Console.WriteLine("↑ : 위로 / ↓ : 아래로 / ← : 왼쪽 / → : 오른쪽 / B : 마을로 이동 / Q : 메인메뉴로 이동");
     }
 
     public override void Exit()

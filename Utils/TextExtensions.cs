@@ -23,6 +23,7 @@ public static class TextExtensions
     public static int GetTextWidth(this string text)
     {
         int width = 0;
+
         foreach (char c in text)
         {
             width += c.GetCharacterWidth();

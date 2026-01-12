@@ -1,7 +1,7 @@
 ﻿public class TownScene : Scene // 마을 화면 씬
 {
     // 마을 맵 구성하는 타일 배열
-    private Tile[,] _field = new Tile[20, 20]; 
+    private Tile[,] _field = new Tile[10, 20]; 
     // 현재 씬에서 사용하는 플레이어 객체
     private PlayerCharacter _player; 
     
@@ -28,14 +28,14 @@
         // 플레이어를 필드에서 분리
         _player.Field = _field;
         _player.Position = new Vector(1, 1);
-        _field[_player.Position.Y, _player.Position.X].OnTileObject = _player;
+        _field[_player.Position.X, _player.Position.Y].OnTileObject = _player;
 
         _field[3, 5].OnTileObject = new Potion() {Name = "Potion1"};
         _field[2, 15].OnTileObject = new Potion() {Name = "Potion2"};
         _field[7, 3].OnTileObject = new Potion() {Name = "Potion3"};
         _field[9, 19].OnTileObject = new Potion() {Name = "Potion4"};
         _field[5, 10].OnTileObject = new Dungeon();
-        _field[10, 10].OnTileObject = new Shop();
+        _field[9, 9].OnTileObject = new Shop();
 
         Debug.Log("타운 씬 진입");
     }
@@ -43,12 +43,23 @@
     public override void Update()
     {
         _player.Update();
+        if (InputManager.GetKey(ConsoleKey.B))
+        {
+            SceneManager.Change("Town");
+        }
+        if (InputManager.GetKey(ConsoleKey.Q))
+        {
+            SceneManager.Change("Title");
+        }
     }
 
     public override void Render()
     {
         PrintField();
         _player.Render();
+
+        if (_player.IsInventoryActive) return;
+        Console.WriteLine("↑ : 위로 / ↓ : 아래로 / ← : 왼쪽 / → : 오른쪽 / Q : 메인메뉴로 이동");
     }
 
     public override void Exit()
