@@ -12,6 +12,13 @@
 
     private bool _isInventoryOpen;
 
+    public int MonsterKillCount { get; private set; }
+
+    public int BossKillCount { get; private set; }
+
+    private bool _monsterAttacked;
+
+
     enum BattleState
     {
         Start,
@@ -87,41 +94,51 @@
         {
             case BattleState.PlayerTurn:
                 
-                if(InputManager.GetKey(ConsoleKey.D1))
+                Console.Clear();
+                Console.SetCursorPosition(0, 20);
+                Console.WriteLine("플레이어의 턴입니다. 행동을 선택하세요.");
+                Console.WriteLine(_message);
+
+                if(InputManager.GetKey(ConsoleKey.Enter))
                 {
-                    if(_monster.HP <= 0)
-                    {
-                        _state = BattleState.Victory;
-                        return;
-                    }
-                }
-                if(InputManager.GetKey(ConsoleKey.D2))
-                {
-                    // 인벤토리
-                }
-                if(InputManager.GetKey(ConsoleKey.D3))
-                {
-                    // 도망
+                    SceneManager.Change("Dungeon");
                 }
                 break;
 
-             case BattleState.MonsterTurn:
+            case BattleState.MonsterTurn:
 
                 _player.TakeDamage(_monster.ATK);
 
                 if(_player.HP <= 0)
                 {
                     _state = BattleState.Defeat;
+                    _message = "플레이어가 패배했습니다...";
+                    if (InputManager.GetKey(ConsoleKey.Enter))
+                    {
+                        SceneManager.Change("MainMenu");
+                    }
                     return;
                 }
                 break;
             case BattleState.Victory:
-                // 몬스터 킬 카운트
-                // 던전 복귀
+                Console.Clear();
+                Console.WriteLine(_message);
+
+                if (InputManager.GetKey(ConsoleKey.Enter))
+                {
+                    SceneManager.Change("Dungeon");
+                }
                 break;
 
             case BattleState.Defeat:
-                // 게임 오버
+                if(_player.HP <= 0)
+                {
+                    
+                    if (InputManager.GetKey(ConsoleKey.Enter))
+                    {
+                        SceneManager.Change("MainMenu");
+                    }
+                }
                 break;
 
         }

@@ -13,9 +13,20 @@ public class PlayerCharacter : GameObject
     public int HP { get; private set; } = 100;
     public int ATK { get; private set; } = 10;
 
+    public int MonsterKillCount { get; private set; }
+
+    public int BossKillCount { get; private set; }
+
     public void AddMonsterKillCount()
     {
-       
+       if (IsBoss)
+       {
+           BossKillCount++;
+       }
+       else
+       {
+           MonsterKillCount++;
+       }
     }
 
     public bool IsBoss { get; set; }
