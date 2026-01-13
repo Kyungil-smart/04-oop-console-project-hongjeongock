@@ -8,6 +8,11 @@ public class PlayerCharacter : GameObject
     public bool IsInventoryActive => _inventory.IsActive;
     public bool IsActiveControl { get; private set; }
 
+    public int MaxHP { get; private set; } = 100;
+
+    public int HP { get; private set; } = 100;
+    public int ATK { get; private set; } = 10;
+
     public void AddMonsterKillCount()
     {
        
@@ -28,7 +33,17 @@ public class PlayerCharacter : GameObject
         Symbol = 'P';
         IsActiveControl = true;
 
+        MaxHP = 100;
+        HP = MaxHP;
+        ATK = 10;
     }
+    public void TakeDamage(int damage)
+    {
+        HP -= damage;
+        if (HP < 0) HP = 0;
+        Debug.LogWarning($"플레이어가 {damage} 데미지를 입었습니다. 남은 체력 : {HP}/{MaxHP}");
+    }
+
 
     public void Update()
     {
@@ -96,9 +111,10 @@ public class PlayerCharacter : GameObject
             SceneManager.Change("Dungeon");
         }
 
-        if (nextTileObject is Monster)
+        if (nextTileObject is Monster monster)
         {
-            SceneManager.Change("Battle");
+            SceneManager.Change(new BattleScene(this, monster));
+            return;
         }
 
         Field[Position.Y, Position.X].OnTileObject = null;

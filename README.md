@@ -97,7 +97,7 @@
    - 전달 데이터:
      - `PlayerCharacter player`
      - `Monster monster`
-     - `string returnSceneKey` (보통 `"Dungeon"`)
+     - `string returnSceneKey`
 6. Battle 종료 후 복귀 시
    - 처치된 몬스터(`IsDead`)는 타일에서 제거
    - 재등장 방지
@@ -163,8 +163,9 @@
 - 포션 사용 가능
 - 몬스터 3마리 처치 시 엔딩
 
-### 안정화
+### 마무리?
 - 이동 시 배열 인덱스 오류 없음
 -  전투 종료 후 정상 복귀
 -  처치한 몬스터 재등장 없음
 -  입력 중복(키 눌림 유지)으로 씬 전환 반복 없음
+ - 플레이어 및 몬스터 등 이모션 출력

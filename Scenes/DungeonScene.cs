@@ -57,9 +57,6 @@
 
     public override void Render()
     {
-        // 화면 출력
-        // 던전 맵 출력
-        // 플레이어 ui 출력
         PrintField();
         _player.Render();
         // 조작키 안내 문구 출력
